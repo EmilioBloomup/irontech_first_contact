@@ -1,6 +1,6 @@
 {
     'name': "irontech_first_contact",
-    'depends': ['base', 'insurance_app', 'mail', 'contacts'],
+    'depends': ['base', 'insurance_app', 'mail', 'contacts', 'bloomup_aruba_sms_integration'],
     'application': False,
     'description': """
         Aggiunge cron per ricordare ad una risorsa di effettuare il primo contatto con un cliente 

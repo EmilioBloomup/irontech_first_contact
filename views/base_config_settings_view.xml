@@ -21,10 +21,17 @@
                                     <field name="days_before_reminder" />
                                 </div>
                                 <div class="o_setting_right_pane" id="reminder_settings">
+                                    <br />
                                     <div class="o_form_label">
                                         Reminder Email Template
                                     </div>
-                                    <field name="inspection_reminder_template_id" widget="many2one"/>
+
+                                    <field name="inspection_reminder_template_id" widget="many2one" />
+                                    <br />
+                                    <div class="o_form_label">
+                                        Reminder SMS Template
+                                    </div>
+                                    <field name="inspection_reminder_sms_template_id" widget="many2one" />
                                 </div>
                             </div>
                         </div>

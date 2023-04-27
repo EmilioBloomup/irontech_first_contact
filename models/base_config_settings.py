@@ -7,3 +7,7 @@ class ResConfigSettings(models.TransientModel):
     inspection_reminder_template_id = fields.Many2one( string="Mail Template ID",
         comodel_name="mail.template", required=True, domain=[('model_id', '=', 'insurance.lead')], 
         config_parameter="irontech_first_contact.inspection_reminder_template_id")
+
+    inspection_reminder_sms_template_id = fields.Many2one( string="SMS Template ID",
+        comodel_name="sms.template", required=True, domain=[('model_id', '=', 'insurance.lead')], 
+        config_parameter="irontech_first_contact.inspection_reminder_sms_template_id")
