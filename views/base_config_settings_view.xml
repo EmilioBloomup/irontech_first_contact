@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Add days before reminder email setting</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='emails']" position='after'>
+                    <div id="reminder_settings">
+                        <h2>Insurance Lead Settings</h2>
+                        <div class="row mt16 o_settings_container" name="reminder_setting_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_right_pane" id="reminder_settings">
+                                    <div class="o_form_label">
+                                        Days Before Reminder
+                                    </div>
+                                    <div class="text-muted">
+                                        Set days after lead creation before sending the user a
+                                        reminder via email/sms. Input 0 to disable reminders
+                                    </div>
+                                    <field name="days_before_reminder" />
+                                </div>
+                                <div class="o_setting_right_pane" id="reminder_settings">
+                                    <div class="o_form_label">
+                                        Reminder Email Template
+                                    </div>
+                                    <field name="inspection_reminder_template_id" widget="many2one"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo> 
