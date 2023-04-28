@@ -34,17 +34,20 @@ class LeadInspection(models.Model):
                                                 ('phase_id.id', '=', reminder_phase_id)], order='create_date desc', limit=1)
                         if int(cur_phase_hist.days) >= int(delay):
                             #send stuff
-                            temp_id = self.env["ir.config_parameter"].sudo().get_param("irontech_first_contact.inspection_reminder_template_id")
-                            temp = self.env['mail.template'].search([('id', '=', temp_id)])
-                            record.message_post_with_template(temp.id, composition_mode='mass_mail', partner_ids=[record.user_id.partner_id.id])
+                            if not record.user_id:
+                                print("no one assigned to this phase, no message sent")
+                            else:
+                                temp_id = self.env["ir.config_parameter"].sudo().get_param("irontech_first_contact.inspection_reminder_template_id")
+                                temp = self.env['mail.template'].search([('id', '=', temp_id)])
+                                record.message_post_with_template(temp.id, composition_mode='mass_mail', partner_ids=[record.user_id.partner_id.id])
+                                print("sent email to: ", record.user_id.partner_id.name)
+
+                                temp_sms_id = self.env["ir.config_parameter"].sudo().get_param("irontech_first_contact.inspection_reminder_sms_template_id")
+                                temp_sms = self.env['sms.template'].search([('id', '=', temp_sms_id)])
+                                record._message_sms_with_template(temp_sms, partner_ids=[record.user_id.partner_id.id])
+                                print("sent sms to: ", record.user_id.partner_id.name)
 
 
-                            temp_sms_id = self.env["ir.config_parameter"].sudo().get_param("irontech_first_contact.inspection_reminder_sms_template_id")
-                            temp_sms = self.env['sms.template'].search([('id', '=', temp_sms_id)])
-                            record._message_sms_with_template(temp_sms, partner_ids=[record.user_id.partner_id.id])
-                            # #.search[('id', '=', temp_id)]
-                            # temp = self.env['mail.template'].search([('id', '=', temp_id)])
-
-                            #remove comment after debugging
-                            #record.requesting_inspection = False
+                            #reset to avoid sending message twice in the same phase
+                            record.requesting_inspection = False
 
